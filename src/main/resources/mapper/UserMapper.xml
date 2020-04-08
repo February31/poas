@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wenjun.poas.mapper.IUserMapper">
+
+    <insert id="addUser" parameterType="com.wenjun.poas.entity.User">
+        insert into poas_user(username,password,role)
+        values (#{username},#{password},#{role})
+    </insert>
+
+    <delete id="deleteUser" parameterType="String">
+        delete from poas_user where username = #{username}
+    </delete>
+
+
+    <select id="findUser" parameterType="String" resultType="com.wenjun.poas.entity.User">
+        select * from poas_user where username = #{username}
+    </select>
+
+    <update id="changePassword">
+        alter table poas_user set password=#{password} where username=#{username}
+    </update>
+
+    <update id="changeRole">
+        alter table poas_user set role=#{role} where username=#{username}
+    </update>
+
+</mapper>
