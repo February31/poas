@@ -12,12 +12,12 @@ public class Spider {
         Process proc;
         try {
             // python脚本文件路径
-            String pyFilePath = "D:\\Pycharm_WorkSpace\\weibo\\start.py";
+            String pyFilePath = "D:/Pycharm_WorkSpace/weibo/start.py";
             // 传给python的参数
 //            String argv1 = "一人之下";
 //            + " " +argv1
-            String[] commends = {"cd D:\\Pycharm_WorkSpace\\weibo","venv\\Scripts\\activate","python start.py"};
-            proc = Runtime.getRuntime().exec(commends);
+            String[] commends = {"D:\\Pycharm_WorkSpace\\weibo\\venv\\Scripts\\python.exe",pyFilePath};
+            proc = Runtime.getRuntime().exec("python "+pyFilePath);
             int i = proc.waitFor();
             System.out.println(i);
         } catch (IOException e) {

@@ -8,3 +8,10 @@ mybatis:
   type-aliases-package: com.wenjun.poas.mapper
   mapper-locations: classpath:/mapper/*.xml
   config-location: classpath:mybatis-config.xml
+
+spider:
+  project: weibo
+  weibospider: weibo_spider
+  commentspider: comment_spider
+  run: http://localhost:6800/schedule.json
+  cancel: http://localhost:6800/cancel.json
