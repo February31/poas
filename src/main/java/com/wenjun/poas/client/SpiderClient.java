@@ -18,18 +18,25 @@ import java.util.Map;
 public class SpiderClient {
     @Resource
     SpiderConfig spiderConfig;
+    @Resource
+    HttpClientUtil httpClientUtil;
 
-    public boolean runSpider(List<String> keywords){
-        HttpClientUtil httpClientUtil = new HttpClientUtil();
-        String url = spiderConfig.runSpiderUrl;
-        System.out.println("spiderConfig.runSpiderUrl"+url);
-        Map<String, Object> map = new HashMap<String, Object>();
+    /**
+     * 运行微博正文爬虫
+     * @param keywords key words
+     * @return is running
+     */
+    public Boolean runTextSpider(List<String> keywords){
+        if (keywords.size() == 0) {
+            return false;
+        }
+        Map<String, Object> map = new HashMap<>();
         map.put("project", spiderConfig.projectName);
         map.put("spider", "baidu");
         map.put("keyword", 1043);
         HttpResult httpResult = null;
         try {
-            httpResult = httpClientUtil.doPost(url, map);
+            httpResult = httpClientUtil.doPost(spiderConfig.runSpiderUrl, map);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -37,4 +44,45 @@ public class SpiderClient {
         System.out.println(httpResult.getBody());
         return true;
     }
+
+    /**
+     * 运行微博评论爬虫
+     * @param textId weibo text id
+     * @return is running
+     */
+    public Boolean runCommentSpider(String textId){
+        Map<String, Object> map = new HashMap<>();
+        map.put("project", spiderConfig.projectName);
+        map.put("spider", "comment");
+        map.put("weibo_id", textId);
+        HttpResult httpResult = null;
+        try {
+            httpResult = httpClientUtil.doPost(spiderConfig.runSpiderUrl, map);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(httpResult.getCode());
+        System.out.println(httpResult.getBody());
+        return true;
+    }
+
+    /**
+     * 查看爬虫工作情况的接口
+     * @param projectName project name
+     * @return request result
+     */
+    public HttpResult listJobs(String projectName){
+        String url = spiderConfig.listJobsUrl;
+        System.out.println("spiderConfig.runSpiderUrl"+url);
+        Map<String, Object> map = new HashMap<>();
+        map.put("project", projectName);
+        HttpResult httpResult = null;
+        try {
+            httpResult = httpClientUtil.doGet(url, map);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return httpResult;
+    }
+
 }

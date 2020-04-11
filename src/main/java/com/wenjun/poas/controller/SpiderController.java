@@ -1,10 +1,11 @@
 package com.wenjun.poas.controller;
 
+import com.wenjun.poas.entity.HttpResult;
 import com.wenjun.poas.service.ISpiderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -19,9 +20,13 @@ import java.util.List;
 public class SpiderController {
     @Resource
     ISpiderService spiderService;
-    @ResponseBody
-    @GetMapping("/crawl")
-    public boolean crawl(@RequestBody List<String> keywords) {
-        return spiderService.runSpider(keywords);
+    @GetMapping("/crawlText")
+    public HttpResult crawl(@RequestBody List<String> keywords) {
+        return spiderService.runTextSpider(keywords);
+    }
+
+    @GetMapping("/crawlComment")
+    public HttpResult crawl(@RequestParam String textId) {
+        return spiderService.runCommentSpider(textId);
     }
 }

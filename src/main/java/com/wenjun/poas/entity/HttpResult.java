@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class HttpResult implements Serializable {
 
     // 响应的状态码
-    private int code;
+    private int code = 200;
 
     // 响应的响应体
     private String body;
