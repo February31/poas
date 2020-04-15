@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wenjun.poas.mapper.IEventMapper">
+
+    <insert id="insertEvent" parameterType="com.wenjun.poas.entity.Event">
+        insert into poas_event(name,start_time,end_time,keywords)
+        values (#{name},#{startTime},#{endTime},#{keywords})
+    </insert>
+
+
+    <select id="findByName" parameterType="String" resultType="com.wenjun.poas.entity.Event">
+        select * from poas_event where name = #{name}
+    </select>
+
+
+    <update id="updateName" parameterType="com.wenjun.poas.entity.Event">
+        update  poas_event set name=#{name} where id=#{id}
+    </update>
+
+    <update id="updateEndTime" parameterType="com.wenjun.poas.entity.Event">
+        update  poas_event set end_time=#{endTime} where id=#{id}
+    </update>
+
+    <update id="updateKeywords" parameterType="com.wenjun.poas.entity.Event">
+        update  poas_event set keywords=#{keywords} where id=#{id}
+    </update>
+
+
+</mapper>
