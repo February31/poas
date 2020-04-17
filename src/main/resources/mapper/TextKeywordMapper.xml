@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wenjun.poas.mapper.ITextKeywordMapper">
+
+    <insert id="insert" parameterType="com.wenjun.poas.entity.TextKeyword">
+        insert into poas_event_keyword(text_id,event_id,keywords)
+        values (#{textId},#{eventId},#{keywords})
+    </insert>
+
+
+    <select id="findByEvent" parameterType="Integer" resultType="com.wenjun.poas.entity.TextKeyword">
+        select * from poas_event_keyword where event_id = #{eventId}
+    </select>
+
+
+</mapper>

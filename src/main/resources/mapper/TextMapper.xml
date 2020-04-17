@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wenjun.poas.mapper.ITextMapper">
+
+    <insert id="insertText" parameterType="com.wenjun.poas.entity.Text">
+        insert into weibo_text(event_id,weibo_id,user_id,comments_count,attitudes_count,reposts_count,text,followers_count,created_at,attitude,similarity,handled_at)
+        values (#{event_id},#{weibo_id},#{user_id},#{comments_count},#{attitudes_count},#{reposts_count},#{text},#{followers_count},#{created_at},#{attitude},#{similarity},#{handled_at})
+    </insert>
+
+    <delete id="deleteText" parameterType="String">
+        delete from weibo_text where weibo_id = #{weiboId}
+    </delete>
+
+
+    <select id="findByEvent" parameterType="Integer" resultType="com.wenjun.poas.entity.Text">
+        select * from weibo_text where event_id = #{eventId}
+    </select>
+
+    <select id="findByTime" resultType="com.wenjun.poas.entity.Text">
+        select * from weibo_text where  handled_at=${time} and event_id = #{eventId}
+    </select>
+
+    <select id="findByNotHandled" resultType="com.wenjun.poas.entity.Text">
+        select * from weibo_text where event_id = #{eventId} and handled_at = '0000-00-00 00:00'
+    </select>
+
+    <update id="updateTextEmotion" parameterType="com.wenjun.poas.entity.Text">
+        update  weibo_text set attitude=#{attitude} where weibo_id=#{weiboId}
+    </update>
+
+
+    <update id="updateText" parameterType="com.wenjun.poas.entity.Text">
+        update  weibo_text set created_at=#{createdAt},similarity=#{similarity},handled_at=#{handledAt},attitude=#{attitude} where weibo_id=#{weiboId} and event_id = #{eventId}
+    </update>
+
+
+</mapper>

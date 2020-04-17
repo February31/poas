@@ -3,7 +3,6 @@ package com.wenjun.poas.config.spider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
-
 /**
  * 关于爬虫的一些配置信息公共类
  *
@@ -24,4 +23,8 @@ public class SpiderConfig {
     public String cancelSpiderUrl;
     @Value("${spider.listjobs}")
     public String listJobsUrl;
+
+//    定时爬取间隔时间
+    @Value("${spider.intervaltime}")
+    public Integer intervalTime;
 }

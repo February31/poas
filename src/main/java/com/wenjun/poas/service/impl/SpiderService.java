@@ -1,14 +1,16 @@
 package com.wenjun.poas.service.impl;
 
+import com.alibaba.druid.util.StringUtils;
+import com.wenjun.poas.aspect.annotation.SpiderMonitor;
 import com.wenjun.poas.client.SpiderClient;
-import com.wenjun.poas.config.spider.SpiderConfig;
+import com.wenjun.poas.entity.Event;
 import com.wenjun.poas.entity.HttpResult;
+import com.wenjun.poas.mapper.IEventMapper;
 import com.wenjun.poas.service.ISpiderService;
-import com.wenjun.poas.util.TimerUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
+
 
 /**跟爬虫相关的service
  * @author xuwenjun
@@ -19,26 +21,26 @@ public class SpiderService implements ISpiderService {
     @Resource
     SpiderClient spiderClient;
     @Resource
-    SpiderConfig spiderConfig;
-    @Resource
-    TimerUtil timerUtil;
+    IEventMapper eventMapper;
 
+    @SpiderMonitor
     @Override
-    public HttpResult runTextSpider(List<String> keywords) {
-        Boolean running = spiderClient.runTextSpider(keywords);
-        //开启监控爬虫运行结果
-        //匿名方法
-        Runnable runnable = () -> {
-            SpiderClient spiderClient = new SpiderClient();
-            spiderClient.listJobs(spiderConfig.projectName);
-        };
-        final long time = 5;//延迟执行实际：秒
-        timerUtil.scheduleAtFixedRate(runnable,time,60);
+    public HttpResult runTextSpider(String keywords,String event) {
+//        TODO 这里还要再开一个定时器，每两个小时执行一次爬虫。
+        String id;
+        if (!StringUtils.isNumber(event)){
+            Event e = eventMapper.findByName(event);
+            id = e.getId().toString();
+        }else {
+            id = event;
+        }
+        Boolean running = spiderClient.runTextSpider(keywords,id);
         HttpResult result = new HttpResult();
         result.setBody(running.toString());
         return result;
     }
 
+    @SpiderMonitor
     @Override
     public HttpResult runCommentSpider(String textId) {
         Boolean running = spiderClient.runCommentSpider(textId);

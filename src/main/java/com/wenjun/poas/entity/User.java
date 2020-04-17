@@ -1,5 +1,6 @@
 package com.wenjun.poas.entity;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,19 +10,12 @@ import java.util.Collection;
  * @author xuwenjun
  * @date 2020/3/26
  */
-//    private int role;
+@Data
 public class User implements UserDetails {
     private String username;
     private String password;
 
 
-    public User() {
-    }
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -51,14 +45,6 @@ public class User implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     @Override

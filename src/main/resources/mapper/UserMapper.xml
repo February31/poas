@@ -16,7 +16,7 @@
         select * from poas_user where username = #{username}
     </select>
 
-    <update id="changePassword">
+    <update id="changePassword" parameterType="com.wenjun.poas.entity.User">
         alter table poas_user set password=#{password} where username=#{username}
     </update>
 

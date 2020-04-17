@@ -26,14 +26,16 @@ public class SpiderClient {
      * @param keywords key words
      * @return is running
      */
-    public Boolean runTextSpider(List<String> keywords){
-        if (keywords.size() == 0) {
+    public Boolean runTextSpider(String keywords,String event){
+        if ("".equals(keywords)||keywords.length()==0) {
             return false;
         }
         Map<String, Object> map = new HashMap<>();
         map.put("project", spiderConfig.projectName);
-        map.put("spider", "baidu");
-        map.put("keyword", 1043);
+        map.put("spider", spiderConfig.textSpider);
+        map.put("keyword", "疫情");
+        map.put("event",event);
+//        map.put("keyword", keywords);
         HttpResult httpResult = null;
         try {
             httpResult = httpClientUtil.doPost(spiderConfig.runSpiderUrl, map);
@@ -53,7 +55,7 @@ public class SpiderClient {
     public Boolean runCommentSpider(String textId){
         Map<String, Object> map = new HashMap<>();
         map.put("project", spiderConfig.projectName);
-        map.put("spider", "comment");
+        map.put("spider", spiderConfig.commentSpider);
         map.put("weibo_id", textId);
         HttpResult httpResult = null;
         try {
@@ -73,7 +75,6 @@ public class SpiderClient {
      */
     public HttpResult listJobs(String projectName){
         String url = spiderConfig.listJobsUrl;
-        System.out.println("spiderConfig.runSpiderUrl"+url);
         Map<String, Object> map = new HashMap<>();
         map.put("project", projectName);
         HttpResult httpResult = null;

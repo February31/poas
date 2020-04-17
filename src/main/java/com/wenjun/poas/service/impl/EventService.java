@@ -6,6 +6,7 @@ import com.wenjun.poas.service.IEventService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author xuwenjun
@@ -39,5 +40,10 @@ public class EventService implements IEventService {
     @Override
     public void updateEndTime(Event event) {
         eventMapper.updateEndTime(event);
+    }
+
+    @Override
+    public List<Event> findNotFinishedEvent() {
+        return eventMapper.findNotFinishedEvent();
     }
 }

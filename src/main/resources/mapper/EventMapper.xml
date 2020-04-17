@@ -25,5 +25,9 @@
         update  poas_event set keywords=#{keywords} where id=#{id}
     </update>
 
+    <select id="findNotFinishedEvent" resultType="com.wenjun.poas.entity.Event">
+        select * from poas_event where status = 0
+    </select>
+
 
 </mapper>

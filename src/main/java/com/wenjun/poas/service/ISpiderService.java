@@ -13,7 +13,7 @@ public interface ISpiderService {
      * @param keywords 关键词
      * @return is running
      */
-    HttpResult runTextSpider(List<String> keywords);
+    HttpResult runTextSpider(String keywords,String event);
 
     HttpResult runCommentSpider(String textId);
 }

@@ -2,6 +2,8 @@ package com.wenjun.poas.service;
 
 import com.wenjun.poas.entity.Event;
 
+import java.util.List;
+
 /**
  * @author xuwenjun
  * @date 2020/4/15
@@ -16,4 +18,6 @@ public interface IEventService {
     void updateKeywords(Event event);
 
     void updateEndTime(Event event);
+
+    List<Event> findNotFinishedEvent();
 }

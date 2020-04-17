@@ -1,5 +1,7 @@
 package com.wenjun.poas.util;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.wenjun.poas.entity.HttpResult;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;

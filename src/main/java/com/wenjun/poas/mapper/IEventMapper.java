@@ -3,6 +3,8 @@ package com.wenjun.poas.mapper;
 import com.wenjun.poas.entity.Event;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author xuwenjun
  * @date 2020/4/15
@@ -18,4 +20,6 @@ public interface IEventMapper {
     void updateKeywords(Event event);
 
     void updateEndTime(Event event);
+
+    List<Event> findNotFinishedEvent();
 }

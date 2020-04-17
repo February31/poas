@@ -11,8 +11,9 @@ mybatis:
 
 spider:
   project: weibo
-  weibospider: weibo_spider
+  weibospider: m_weibo_spider
   commentspider: comment_spider
   run: http://localhost:6800/schedule.json
   cancel: http://localhost:6800/cancel.json
   listjobs: http://localhost:6800/listjobs.json
+  intervaltime: 5000

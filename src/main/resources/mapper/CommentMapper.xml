@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wenjun.poas.mapper.ICommentMapper">
+
+    <insert id="insertComment" parameterType="com.wenjun.poas.entity.Comment">
+        insert into poas_user(weibo_id,comment_id,user_id,text)
+        values (#{weiboId},#{commentId},#{userId},#{text})
+    </insert>
+
+    <delete id="deleteComment" parameterType="String">
+        delete from weibo_comment where comment_id = #{commentId}
+    </delete>
+
+
+    <select id="findByTextId" parameterType="String" resultType="com.wenjun.poas.entity.Comment">
+        select * from weibo_comment where weibo_id = #{weiboId}
+    </select>
+
+    <update id="updateCommentAttitude" parameterType="com.wenjun.poas.entity.Comment">
+        update weibo_comment set attitude=#{attitude} where
+    </update>
+
+
+</mapper>
