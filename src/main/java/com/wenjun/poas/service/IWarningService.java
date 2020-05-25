@@ -12,6 +12,8 @@ import java.util.List;
 public interface IWarningService {
     void addWarning(Warning warning);
 
+    void deleteWarning(Warning warning);
+
     /**
      * 通过事件来查找预警，一个事件只有一个预警
      *
@@ -27,6 +29,8 @@ public interface IWarningService {
      * @return 一组事件
      */
     List<Warning> findByUser(String userId);
+
+    List<Warning> findByUserAll(String userId);
 
     /**
      * 计算在这次处理中，是否达到舆情预警条件.

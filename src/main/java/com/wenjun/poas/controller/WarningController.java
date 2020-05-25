@@ -34,6 +34,13 @@ public class WarningController {
         return ApiResultBuilder.success("success", ResultCode.SUCCESS);
     }
 
+    @PostMapping("/warning/delete")
+    public ApiResult<String> deleteWarning(@RequestHeader("Authorization") String username, @RequestBody Warning warning) {
+        log.info("{} {}", username, warning);
+        warningService.deleteWarning(warning);
+        return ApiResultBuilder.success("success", ResultCode.SUCCESS);
+    }
+
     /**
      * 用来给前端提供站内报警的接口
      *
@@ -46,6 +53,14 @@ public class WarningController {
             userId = userService.findByName(userId).getId();
         }
         return ApiResultBuilder.success(warningService.findByUser(userId), ResultCode.SUCCESS);
+    }
+
+    @GetMapping("/warning/getAll")
+    public ApiResult<List<Warning>> getAllWarning(@RequestParam String userId) {
+        if (!StringUtils.isNumber(userId)) {
+            userId = userService.findByName(userId).getId();
+        }
+        return ApiResultBuilder.success(warningService.findByUserAll(userId), ResultCode.SUCCESS);
     }
 
     @PostMapping("/warning/update")

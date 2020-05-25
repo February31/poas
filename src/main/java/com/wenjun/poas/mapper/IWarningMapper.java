@@ -13,6 +13,8 @@ import java.util.List;
 public interface IWarningMapper {
     void insertWarning(Warning warning);
 
+    void deleteWarning(Warning warning);
+
     Warning findWarning(String eventId);
 
     void updateTimeAndSize(Warning warning);
@@ -20,6 +22,8 @@ public interface IWarningMapper {
     void updateWarning(Warning warning);
 
     List<Warning> findByUser(String userId);
+
+    List<Warning> findByUserAll(String userId);
 
     void handledWarning(String eventId);
 }

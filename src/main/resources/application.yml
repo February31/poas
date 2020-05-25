@@ -15,6 +15,14 @@ mybatis:
   mapper-locations: classpath:/mapper/*.xml
   config-location: classpath:mybatis-config.xml
 
+warning:
+  title: 舆情报警！！！
+  content: 事件在
+  content2: 采集到相关舆情数量达到
+  content3: 触发报警条件,请尽快处理!
+
+
+
 spider:
   project: weibo
   weibospider: m_weibo_spider
@@ -24,11 +32,6 @@ spider:
   listjobs: http://localhost:6800/listjobs.json
   intervalTime: 36000000
   initialDelay: 36000000
-warning:
-  title: 舆情报警！！！
-  content: 事件在
-  content2: 采集到相关舆情数量达到
-  content3: 触发报警条件,请尽快处理!
 
 #log4j2配置文件
 logging:

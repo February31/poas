@@ -7,6 +7,10 @@
         values (#{unit},#{max},#{type},#{eventId},#{userId})
     </insert>
 
+    <delete id="deleteWarning" parameterType="com.wenjun.poas.entity.Warning">
+        delete from poas_warning where id=#{id}
+    </delete>
+
 
     <select id="findWarning" parameterType="String" resultType="com.wenjun.poas.entity.Warning">
         select * from poas_warning where event_id = #{eventId}
@@ -14,6 +18,10 @@
 
     <select id="findByUser" parameterType="String" resultType="com.wenjun.poas.entity.Warning">
         select * from poas_warning where user_id = #{userId} and `size`>0 and  `type`="station"
+    </select>
+
+    <select id="findByUserAll" parameterType="String" resultType="com.wenjun.poas.entity.Warning">
+        select * from poas_warning where user_id = #{userId}
     </select>
 
 

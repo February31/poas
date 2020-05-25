@@ -15,7 +15,7 @@ public class LogReader {
     public List<String> read(String fileName) {
         List<String> list = new ArrayList<>();
         try {
-            InputStreamReader isr = new InputStreamReader(new FileInputStream(fileName), "GBK");
+            InputStreamReader isr = new InputStreamReader(new FileInputStream(fileName), "utf-8");
             BufferedReader br = new BufferedReader(isr);
             String temp;
             while ((temp = br.readLine()) != null) {

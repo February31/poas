@@ -40,6 +40,11 @@ public class WarningService implements IWarningService {
     }
 
     @Override
+    public void deleteWarning(Warning warning) {
+        warningMapper.deleteWarning(warning);
+    }
+
+    @Override
     public Warning findWarning(String eventId) {
         return warningMapper.findWarning(eventId);
     }
@@ -47,6 +52,11 @@ public class WarningService implements IWarningService {
     @Override
     public List<Warning> findByUser(String userId) {
         return warningMapper.findByUser(userId);
+    }
+
+    @Override
+    public List<Warning> findByUserAll(String userId) {
+        return warningMapper.findByUserAll(userId);
     }
 
     @Override

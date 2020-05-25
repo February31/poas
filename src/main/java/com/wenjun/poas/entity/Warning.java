@@ -8,7 +8,7 @@ import lombok.Data;
  */
 @Data
 public class Warning {
-
+    private String id;
     private String unit;
     private String max;
     private String type;
