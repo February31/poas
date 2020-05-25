@@ -15,7 +15,11 @@ public interface ICommentMapper {
 
     List<Comment> findByTextId(String textId);
 
-    void deleteComment(String commentId);
+    void deleteComment(Comment comment);
 
     void updateCommentAttitude(Comment comment);
+
+    Integer getPosCount(String weiboId);
+
+    Integer getNegCount(String weiboId);
 }

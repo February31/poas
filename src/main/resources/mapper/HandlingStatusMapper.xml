@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wenjun.poas.mapper.HandlingStatusMapper">
+
+    <insert id="startEventSpider" parameterType="String">
+        insert into spider_status(event_id) values (#{eventId})
+    </insert>
+
+    <insert id="startCommentSpider" parameterType="String">
+        insert into spider_status(weibo_id) values (#{weiboId})
+    </insert>
+
+    <insert id="startEventNlp" parameterType="String">
+        insert into nlp_status(event_id) values (#{eventId})
+    </insert>
+
+    <insert id="startCommentNlp" parameterType="String">
+        insert into nlp_status(weibo_id) values (#{weiboId})
+    </insert>
+
+    <delete id="finishEventSpider" parameterType="String">
+        delete from spider_status where event_id = #{eventId}
+    </delete>
+
+    <delete id="finishCommentSpider" parameterType="String">
+        delete from spider_status where weibo_id = #{weiboId}
+    </delete>
+
+    <delete id="finishEventNlp" parameterType="String">
+        delete from nlp_status where event_id = #{eventId}
+    </delete>
+
+    <delete id="finishCommentNlp" parameterType="String">
+        delete from nlp_status where weibo_id = #{weiboId}
+    </delete>
+
+
+    <select id="checkEventSpider" parameterType="String" resultType="Integer">
+        select count(1) from spider_status where event_id = #{eventId}
+    </select>
+
+    <select id="checkEventNlp" parameterType="String" resultType="Integer">
+        select count(1) from nlp_status where event_id = #{eventId}
+    </select>
+
+    <select id="checkCommentSpider" parameterType="String" resultType="Integer">
+        select count(1) from spider_status where weibo_id = #{weiboId}
+    </select>
+
+    <select id="checkCommentNlp" parameterType="String" resultType="Integer">
+        select count(1) from nlp_status where weibo_id = #{weiboId}
+    </select>
+
+
+
+
+
+</mapper>

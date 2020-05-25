@@ -23,18 +23,19 @@ public class SpiderClient {
 
     /**
      * 运行微博正文爬虫
+     *
      * @param keywords key words
      * @return is running
      */
-    public Boolean runTextSpider(String keywords,String event){
-        if ("".equals(keywords)||keywords.length()==0) {
+    public Boolean runTextSpider(String keywords, String event) {
+        if ("".equals(keywords) || keywords.length() == 0) {
             return false;
         }
         Map<String, Object> map = new HashMap<>();
         map.put("project", spiderConfig.projectName);
         map.put("spider", spiderConfig.textSpider);
-        map.put("keyword", "疫情");
-        map.put("event",event);
+        map.put("keyword", keywords);
+        map.put("event", event);
 //        map.put("keyword", keywords);
         HttpResult httpResult = null;
         try {
@@ -49,10 +50,11 @@ public class SpiderClient {
 
     /**
      * 运行微博评论爬虫
+     *
      * @param textId weibo text id
      * @return is running
      */
-    public Boolean runCommentSpider(String textId){
+    public Boolean runCommentSpider(String textId) {
         Map<String, Object> map = new HashMap<>();
         map.put("project", spiderConfig.projectName);
         map.put("spider", spiderConfig.commentSpider);
@@ -70,10 +72,11 @@ public class SpiderClient {
 
     /**
      * 查看爬虫工作情况的接口
+     *
      * @param projectName project name
      * @return request result
      */
-    public HttpResult listJobs(String projectName){
+    public HttpResult listJobs(String projectName) {
         String url = spiderConfig.listJobsUrl;
         Map<String, Object> map = new HashMap<>();
         map.put("project", projectName);

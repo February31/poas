@@ -1,10 +1,10 @@
 package com.wenjun.poas.controller;
 
+import com.wenjun.poas.entity.Event;
 import com.wenjun.poas.entity.HttpResult;
 import com.wenjun.poas.service.ISpiderService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -14,18 +14,21 @@ import javax.annotation.Resource;
  * @author xuwenjun
  * @date 2020/4/9
  */
+@Log4j2
 @RestController
 public class SpiderController {
     @Resource
     ISpiderService spiderService;
 
-    @GetMapping("/crawlText")
-    public HttpResult crawl(@RequestParam String keywords, @RequestParam String event) {
-        return spiderService.runTextSpider(keywords, event);
+    @PostMapping("/spider/crawlText")
+    public HttpResult crawl(@RequestHeader("Authorization") String user, @RequestBody Event event) {
+        log.info("{} {}", user, event);
+        return spiderService.runTextSpider(event);
     }
 
-    @GetMapping("/crawlComment")
-    public HttpResult crawl(@RequestParam String textId) {
+    @PostMapping("/spider/crawlComment")
+    public HttpResult crawl(@RequestHeader("Authorization") String user, @RequestParam String textId) {
+        log.info("{} {}", user, textId);
         return spiderService.runCommentSpider(textId);
     }
 }

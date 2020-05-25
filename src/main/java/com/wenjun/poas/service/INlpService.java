@@ -16,7 +16,6 @@ public interface INlpService {
      * 情感分析
      *
      * @param texts 要被分析的句子集
-     *
      */
     void sentimentAnalysisText(List<Text> texts);
 
@@ -24,7 +23,6 @@ public interface INlpService {
      * 情感分析
      *
      * @param comments 要被分析的句子集
-     *
      */
     void sentimentAnalysisComment(List<Comment> comments);
 
@@ -32,18 +30,15 @@ public interface INlpService {
      * 相似数分析
      *
      * @param texts 句子
-     *
-     *
      */
     void similarityAnalysis(List<Text> texts);
 
     /**
      * 提取关键词
-     * @param texts 句子集
      *
+     * @param texts 句子集
      */
-    void  extractKeywords(List<Text> texts);
-
+    void extractKeywords(List<Text> texts);
 
     void dateFormat(List<Text> texts);
 }

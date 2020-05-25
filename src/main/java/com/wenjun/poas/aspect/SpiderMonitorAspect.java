@@ -40,7 +40,7 @@ public class SpiderMonitorAspect {
         asyncNlpProcessing.monitorSpider(params);
     }
 
-    Map<String, Object> getNameAndValue(JoinPoint joinPoint) {
+    private Map<String, Object> getNameAndValue(JoinPoint joinPoint) {
         Map<String, Object> param = new HashMap<>();
 
         Object[] paramValues = joinPoint.getArgs();

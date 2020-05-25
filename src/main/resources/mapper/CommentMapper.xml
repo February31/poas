@@ -7,8 +7,8 @@
         values (#{weiboId},#{commentId},#{userId},#{text})
     </insert>
 
-    <delete id="deleteComment" parameterType="String">
-        delete from weibo_comment where comment_id = #{commentId}
+    <delete id="deleteComment" parameterType="com.wenjun.poas.entity.Comment">
+        delete from weibo_comment where comment_id = #{commentId} and weibo_id=#{weiboId}
     </delete>
 
 
@@ -16,8 +16,16 @@
         select * from weibo_comment where weibo_id = #{weiboId}
     </select>
 
+    <select id="getPosCount" parameterType="String" resultType="Integer">
+        select count(1) from weibo_comment where weibo_id = #{weiboId} and attitude="正向"
+    </select>
+
+    <select id="getNegCount" parameterType="String" resultType="Integer">
+        select count(1) from weibo_comment where weibo_id = #{weiboId} and attitude="负向"
+    </select>
+
     <update id="updateCommentAttitude" parameterType="com.wenjun.poas.entity.Comment">
-        update weibo_comment set attitude=#{attitude} where
+        update weibo_comment set attitude=#{attitude} where comment_id=#{commentId}
     </update>
 
 

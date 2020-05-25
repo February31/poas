@@ -155,14 +155,14 @@ public class NlpService implements INlpService {
         }
     }
 
-    private  String format(String content) {
+    private String format(String content) {
+//        去掉“#”这种特殊符号
         String regEx = "[\n`~!@#$%^&*()+=|{}':;,\\[\\].<>/?！￥…（）—【】‘；：”“’。， 、？]";
         String aa = "";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(content);
         return m.replaceAll(aa).trim();
     }
-
 
     /**
      * 分析出发布时间，便于分析时间趋势

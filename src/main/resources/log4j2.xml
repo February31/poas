@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!--日志输出地方-->
+    <appenders>
+
+
+        <!--druid的日志记录追加器-->
+<!--        <RollingFile name="druidSqlRollingFile" fileName="./logs/druid-sql.log" filePattern="logs/$${date:yyyy-MM}/api-%d{yyyy-MM-dd}-%i.log.gz">-->
+<!--        &lt;!&ndash;日志输出格式&ndash;&gt;-->
+<!--        <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss}] %-5level %L %M - %msg%n"/>-->
+<!--        <Policies>-->
+<!--        &lt;!&ndash;打印出DEBUG级别日志，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档&ndash;&gt;-->
+<!--        <SizeBasedTriggeringPolicy size="500 MB"/>-->
+<!--        <TimeBasedTriggeringPolicy/>-->
+<!--        &lt;!&ndash;<TimeBasedTriggeringPolicy interval="1" modulate="true"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;每天打包&ndash;&gt;-->
+<!--        </Policies>-->
+<!--        </RollingFile>-->
+<!--        &lt;!&ndash;关于rollingfile的博客地址https://blog.csdn.net/u013066244/article/details/72461105&ndash;&gt;-->
+<!--        向控制台输出日志。 -->
+
+        <RollingFile name="service" fileName="./log/service.log" append="true" filePattern="./log/service/%d{yyyy-MM-dd}.log">
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>-->
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+        </RollingFile>
+        <RollingFile name="login" fileName="./log/login.log" append="true" filePattern="./log/login/%d{yyyy-MM-dd}.log">
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>-->
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+        </RollingFile>
+<!--        <File name="service" fileName="./log/service.log" append="true">-->
+<!--            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>&ndash;&gt;-->
+<!--            <PatternLayout pattern="[%d{yyyy-MM-DD HH:mm:ss}] [%p] - %l - %m%n"/>-->
+<!--        </File>-->
+        <RollingFile name="error" fileName="./log/error.log" append="true" filePattern="./log/error/%d{yyyy-MM-dd}.log">
+            <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>-->
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+        </RollingFile>
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <!-- 日志级别过滤器 -->
+            <!--<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>-->
+            <!--日志输出格式-->
+            <PatternLayout pattern="[%d{HH:mm:ss.SSS}] %style{%-5level}{pink} %class{36} %style{[%L]}{magenta} %M - %msg%n" disableAnsi="false"  noConsoleNoAnsi="false"/>
+
+            <!--%d打印时间。-->
+            <!--%-5level,%level表示打印日志等级，-5表示左对齐，一共五位，不足五位空格补齐，多于五位保留-->
+            <!--%class{36}，输出类-->
+            <!--%L，输出错误行号-->
+            <!--%M或 %method，输出方法名-->
+            <!--%msg或者%m,输出错误信息-->
+
+
+            <!--%n,老朋友了-->
+        </Console>
+
+    </appenders>
+
+    <loggers>
+        <!--根，全局配置-->
+        <root level="info">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="error"/>
+        </root>
+
+        <logger name="com.wenjun.poas.controller" level="info" additivity="false">
+            <appender-ref ref="service"/>
+        </logger>
+        <logger name="com.wenjun.poas.config.security.MyAuthenticationSuccessHandler" level="info" additivity="false">
+            <appender-ref ref="login"/>
+        </logger>
+
+    </loggers>
+</configuration>

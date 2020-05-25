@@ -4,6 +4,12 @@ spring:
     username: root
     password: root
     url: jdbc:mysql://127.0.0.1:3306/poas?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+  mail:
+    host: smtp.qq.com
+    username: 1453470090@qq.com
+    password: jomnhuiphzyrjihh
+    protocol: smtp
+    default-encoding: utf-8
 mybatis:
   type-aliases-package: com.wenjun.poas.mapper
   mapper-locations: classpath:/mapper/*.xml
@@ -16,4 +22,14 @@ spider:
   run: http://localhost:6800/schedule.json
   cancel: http://localhost:6800/cancel.json
   listjobs: http://localhost:6800/listjobs.json
-  intervaltime: 5000
+  intervalTime: 36000000
+  initialDelay: 36000000
+warning:
+  title: 舆情报警！！！
+  content: 事件在
+  content2: 采集到相关舆情数量达到
+  content3: 触发报警条件,请尽快处理!
+
+#log4j2配置文件
+logging:
+  config: classpath:log4j2.xml

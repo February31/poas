@@ -3,18 +3,38 @@
 <mapper namespace="com.wenjun.poas.mapper.IEventMapper">
 
     <insert id="insertEvent" parameterType="com.wenjun.poas.entity.Event">
-        insert into poas_event(name,start_time,end_time,keywords)
+        insert into poas_event(`name`,start_time,end_time,keywords)
         values (#{name},#{startTime},#{endTime},#{keywords})
     </insert>
 
 
     <select id="findByName" parameterType="String" resultType="com.wenjun.poas.entity.Event">
-        select * from poas_event where name = #{name}
+        select * from poas_event where `name` = #{name}
     </select>
 
+    <select id="findById" parameterType="String" resultType="com.wenjun.poas.entity.Event">
+        select * from poas_event where id = #{id}
+    </select>
+
+    <select id="findAll" parameterType="String" resultType="com.wenjun.poas.entity.Event">
+        select * from poas_event
+    </select>
+
+    
+    <select id="checkEventStatus" parameterType="String" resultType="String">
+        select status from poas_event where id = #{id};
+    </select>
+
+    <select id="getFilterWords" parameterType="String" resultType="String">
+        select filter_words from poas_event where id = #{id};
+    </select>
+
+    <select id="getFilterTime" parameterType="String" resultType="String">
+        select add_filter_time from poas_event where id = #{id};
+    </select>
 
     <update id="updateName" parameterType="com.wenjun.poas.entity.Event">
-        update  poas_event set name=#{name} where id=#{id}
+        update  poas_event set `name`=#{name} where id=#{id}
     </update>
 
     <update id="updateEndTime" parameterType="com.wenjun.poas.entity.Event">
@@ -25,9 +45,30 @@
         update  poas_event set keywords=#{keywords} where id=#{id}
     </update>
 
+    <update id="updateFilterWords" parameterType="com.wenjun.poas.entity.Event">
+        update  poas_event set filter_words=#{filterWords} where id=#{id}
+    </update>
+
+
+
     <select id="findNotFinishedEvent" resultType="com.wenjun.poas.entity.Event">
-        select * from poas_event where status = 0
+        select * from poas_event where status = '进行中'
     </select>
 
+    <update id="updateEvent" parameterType="com.wenjun.poas.entity.Event">
+        update poas_event set keywords=#{keywords},end_time=#{endTime},`name`=#{name},filter_words=#{filterWords},add_filter_time=#{addFilterTime} where id=#{id}
+    </update>
+
+    <update id="start" parameterType="com.wenjun.poas.entity.Event">
+        update  poas_event set status='进行中' where id=#{id}
+    </update>
+
+    <update id="suspend" parameterType="com.wenjun.poas.entity.Event">
+        update  poas_event set status='未开始' where id=#{id}
+    </update>
+
+    <update id="finish" parameterType="com.wenjun.poas.entity.Event">
+        update  poas_event set status='结束' where id=#{id}
+    </update>
 
 </mapper>

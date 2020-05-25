@@ -22,12 +22,13 @@ public class DemoTextClassification
     /**
      * 搜狗文本分类语料库5个类目，每个类目下1000篇文章，共计5000篇文章
      */
-//    public static final String CORPUS_FOLDER = "D:/hanlp/情感分析";
-    public static final String CORPUS_FOLDER = "D:/hanlp/语料库/ChnSentiCorp情感分析酒店评论";
+//    public static final String CORPUS_FOLDER = "D:/hanlp/语料库/情感分析";
+//    public static final String CORPUS_FOLDER = "D:/hanlp/语料库/ChnSentiCorp情感分析酒店评论";
+    public static final String CORPUS_FOLDER = "D:/hanlp/语料库/aaa";
     /**
      * 模型保存路径
      */
-    public static final String MODEL_PATH = "d:/hanlp/test/classification-model-2.ser";
+    public static final String MODEL_PATH = "d:/hanlp/test/classification-model-test.ser";
 
 
     public static void main(String[] args) throws IOException

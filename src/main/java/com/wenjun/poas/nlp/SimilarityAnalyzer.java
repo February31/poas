@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
- *
  * @author xuwenjun
  * @date 2020/4/13
  */
 @Component
 public class SimilarityAnalyzer {
     DocVectorModel docVectorModel;
-    public SimilarityAnalyzer(){
+
+    public SimilarityAnalyzer() {
         String filePath = "D:\\hanlp\\hanlp-wiki-vec-zh\\hanlp-wiki-vec-zh.txt";
         WordVectorModel wordVectorModel;
         wordVectorModel = null;
@@ -26,7 +26,7 @@ public class SimilarityAnalyzer {
         docVectorModel = new DocVectorModel(wordVectorModel);
     }
 
-    public Float analyse(String what,String with){
-        return docVectorModel.similarity(what,with);
+    public Float analyse(String what, String with) {
+        return docVectorModel.similarity(what, with);
     }
 }

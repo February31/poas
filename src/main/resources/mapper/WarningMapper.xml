@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wenjun.poas.mapper.IWarningMapper">
+
+    <insert id="insertWarning" parameterType="com.wenjun.poas.entity.Warning">
+        insert into poas_warning(unit,`max`,`type`,event_id,user_id)
+        values (#{unit},#{max},#{type},#{eventId},#{userId})
+    </insert>
+
+
+    <select id="findWarning" parameterType="String" resultType="com.wenjun.poas.entity.Warning">
+        select * from poas_warning where event_id = #{eventId}
+    </select>
+
+    <select id="findByUser" parameterType="String" resultType="com.wenjun.poas.entity.Warning">
+        select * from poas_warning where user_id = #{userId} and `size`>0 and  `type`="station"
+    </select>
+
+
+    <update id="updateTimeAndSize" parameterType="com.wenjun.poas.entity.Warning">
+        update  poas_warning set `time`=#{time},`size`=#{size} where event_id=#{eventId}
+    </update>
+
+    <update id="updateWarning" parameterType="com.wenjun.poas.entity.Warning">
+        update  poas_warning set unit=#{unit},`max`=#{max},`type`=#{type} where event_id=#{eventId}
+    </update>
+
+    <update id="handledWarning" parameterType="String">
+        update  poas_warning set `size`=0 where event_id=#{eventId}
+    </update>
+
+
+</mapper>

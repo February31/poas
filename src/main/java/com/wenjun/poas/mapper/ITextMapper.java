@@ -14,15 +14,23 @@ import java.util.List;
 public interface ITextMapper {
     void insertText(Text text);
 
-    List<Text> findByEvent(Integer eventId);
+    List<Text> findByEvent(String eventId);
 
-    List<Text> findByTime(@Param("time") String time, @Param("eventId") Integer eventId);
+    List<Text> findByTime(@Param("time") String time, @Param("eventId") String eventId);
 
-    List<Text> findByNotHandled(Integer eventId);
+    List<Text> findByNotHandled(String eventId);
 
-    void deleteText(String textId);
+    Integer getPosCount(String eventId);
+
+    Integer getNegCount(String eventId);
+
+    List<Text> findByDay(@Param("day") String day, @Param("eventId") String eventId);
+
+    void deleteText(Text text);
 
     void updateTextEmotion(Text text);
 
     void updateText(Text text);
+
+    void crawlComment(String weiboId);
 }

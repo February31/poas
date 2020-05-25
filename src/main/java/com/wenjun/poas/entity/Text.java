@@ -6,24 +6,25 @@ import org.springframework.stereotype.Component;
 
 /**
  * weibo text
+ *
  * @author xuwenjun
  * @date 2020/4/12
  */
 
-
 @Data
 public class Text {
-    Integer eventId;
-    String weiboId;
-    String userId;
-    Integer commentsCount;
-    Integer attitudesCount;
-    Integer repostsCount;
-    String createdAt;
-    String attitude;
-    Integer similarity;
-    String handledAt;
-    String crawledAt;
-    String text;
+    private Integer eventId;
+    private String weiboId;
+    private String userId;
+    private Integer commentsCount;
+    private Integer attitudesCount;
+    private Integer repostsCount;
+    private String createdAt;
+    private String attitude;
+    private Integer similarity;
+    private String handledAt;
+    private String crawledAt;
+    private String text;
+    private String commentStatus;
 
 }

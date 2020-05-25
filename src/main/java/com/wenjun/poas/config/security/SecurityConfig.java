@@ -1,5 +1,6 @@
 package com.wenjun.poas.config.security;
 
+import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -22,15 +23,15 @@ import javax.annotation.Resource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     UserDetailsService loginService;
-    @Autowired
+    @Resource
     AuthenticationEntryPoint authenticationEntryPoint;
-    @Autowired
+    @Resource
     PasswordEncoder passwordEncoder;
-    @Autowired
+    @Resource
     AuthenticationSuccessHandler authenticationSuccessHandler;
-    @Autowired
+    @Resource
     AuthenticationFailureHandler authenticationFailureHandler;
-    @Autowired
+    @Resource
     LogoutSuccessHandler logoutSuccessHandler;
 
     @Override

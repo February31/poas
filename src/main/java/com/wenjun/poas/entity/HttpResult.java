@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * 用来接收请求接口的返回数据。（后台调用其他接口）
+ *
  * @author xuwenjun
  * @date 2020/4/9
  */

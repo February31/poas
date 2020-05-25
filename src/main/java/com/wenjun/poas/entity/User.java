@@ -12,10 +12,12 @@ import java.util.Collection;
  */
 @Data
 public class User implements UserDetails {
-    private String username;
+    private String id;
+    private String name;
     private String password;
-
-
+    private String email;
+    private String role;
+    private String status;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -27,9 +29,8 @@ public class User implements UserDetails {
         return password;
     }
 
-    @Override
     public String getUsername() {
-        return username;
+        return name;
     }
 
     @Override

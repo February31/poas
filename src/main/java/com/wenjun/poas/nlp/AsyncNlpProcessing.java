@@ -4,12 +4,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.wenjun.poas.client.SpiderClient;
 import com.wenjun.poas.config.spider.SpiderConfig;
-import com.wenjun.poas.entity.Comment;
-import com.wenjun.poas.entity.HttpResult;
-import com.wenjun.poas.entity.Text;
+import com.wenjun.poas.entity.*;
+import com.wenjun.poas.mapper.HandlingStatusMapper;
 import com.wenjun.poas.service.ICommentService;
 import com.wenjun.poas.service.INlpService;
 import com.wenjun.poas.service.ITextService;
+import com.wenjun.poas.service.IWarningService;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -35,6 +35,10 @@ public class AsyncNlpProcessing {
     INlpService nlpService;
     @Resource
     ICommentService commentService;
+    @Resource
+    IWarningService warningService;
+    @Resource
+    HandlingStatusMapper handlingStatusMapper;
 
     @Async
     public void monitorSpider(Map<String, Object> map) {
@@ -55,7 +59,8 @@ public class AsyncNlpProcessing {
             isRunning = pending.size() > 0 || running.size() > 0;
         } while (isRunning);
         if (map.containsKey("event")) {
-            processingText(map.get("event").toString());
+            Event event = (Event) map.get("event");
+            processingText(event.getId());
         } else {
             processingComment(map.get("textId").toString());
         }
@@ -71,25 +76,49 @@ public class AsyncNlpProcessing {
     /**
      * 1.把数据全部取出来，然后一一丢进nlpservice的方法中
      */
-    private void processingText(String event) {
-        List<Text> list = textService.getByNotHandled(event);
-//        nlpService.dateFormat(list);
+    private void processingText(String eventId) {
+//        关闭爬虫状态监控，表示事件爬虫结束
+        handlingStatusMapper.finishEventSpider(eventId);
+//        开启nlp处理监控，表示舆情分析进行中
+        handlingStatusMapper.startEventNlp(eventId);
+        List<Text> list = textService.getByNotHandled(eventId);
+        //进行是否触发报警判读
+        if (warningService.fit(eventId, list)) {
+            Warning warning = warningService.findWarning(eventId);
+//            如果报警方式是邮件就发邮件，不是则把这一次的舆情报警时间和舆情条数记录下来
+            warning.setSize(warningService.getSize().toString());
+            warning.setTime(list.get(0).getCrawledAt());
+            warningService.updateTimeAndSize(warning);
+            if ("email".equals(warning.getType())) {
+                warningService.sendEmail(eventId);
+            }
+        }
+        nlpService.dateFormat(list);
         nlpService.extractKeywords(list);
-//        nlpService.sentimentAnalysisText(list);
-//        nlpService.similarityAnalysis(list);
+        nlpService.sentimentAnalysisText(list);
+        nlpService.similarityAnalysis(list);
 //        把list写回数据库
-        for(Text text:list){
+        for (Text text : list) {
+//            System.out.println(text);
             textService.updateText(text);
         }
+        //        结束nlp处理监控，表示舆情分析完毕
+        handlingStatusMapper.finishEventNlp(eventId);
         System.out.println("分析完毕");
     }
 
     private void processingComment(String textId) {
+        //        关闭爬虫状态监控，表示评论爬虫结束
+        handlingStatusMapper.finishCommentSpider(textId);
+//        开启nlp处理监控，表示评论舆情分析进行中
+        handlingStatusMapper.startCommentNlp(textId);
         List<Comment> list = commentService.getComment(textId);
         nlpService.sentimentAnalysisComment(list);
 //        把list写回数据库
-        for (Comment comment:list){
+        for (Comment comment : list) {
             commentService.updateCommentAttitude(comment);
         }
+//        结束nlp处理监控，表示舆情分析完毕
+        handlingStatusMapper.finishCommentNlp(textId);
     }
 }

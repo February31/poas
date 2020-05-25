@@ -3,25 +3,42 @@
 <mapper namespace="com.wenjun.poas.mapper.IUserMapper">
 
     <insert id="addUser" parameterType="com.wenjun.poas.entity.User">
-        insert into poas_user(username,password,role)
-        values (#{username},#{password},#{role})
+        insert into poas_user(name,password,role)
+        values (#{name},#{password},#{role})
     </insert>
 
     <delete id="deleteUser" parameterType="String">
-        delete from poas_user where username = #{username}
+        delete from poas_user where id = #{id}
     </delete>
 
 
     <select id="findUser" parameterType="String" resultType="com.wenjun.poas.entity.User">
-        select * from poas_user where username = #{username}
+        select * from poas_user where name = #{name}
+    </select>
+
+    <select id="findAll" resultType="com.wenjun.poas.entity.User">
+        select * from poas_user
+    </select>
+
+    <select id="findById" parameterType="String" resultType="com.wenjun.poas.entity.User">
+        select * from poas_user where id = #{id}
     </select>
 
     <update id="changePassword" parameterType="com.wenjun.poas.entity.User">
-        alter table poas_user set password=#{password} where username=#{username}
+        update  poas_user set password=#{password} where id=#{id}
     </update>
 
-    <update id="changeRole">
-        alter table poas_user set role=#{role} where username=#{username}
+    <update id="changeEmail" parameterType="com.wenjun.poas.entity.User">
+        update  poas_user set email=#{email} where id=#{id}
+    </update>
+
+
+    <update id="changeRole" parameterType="com.wenjun.poas.entity.User">
+        update  poas_user set role=#{role} where id=#{id}
+    </update>
+
+    <update id="updateUser" parameterType="com.wenjun.poas.entity.User">
+        update  poas_user set email=#{email},`name`=#{name} where id=#{id}
     </update>
 
 </mapper>

@@ -7,20 +7,23 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * 登录需要查询数据库的service
+ *
  * @author xuwenjun
  * @date 2020/3/26
  */
 @Service
-public class LoginService implements  UserDetailsService {
+public class LoginService implements UserDetailsService {
 
-    @Autowired
+    @Resource
     IUserMapper UserMapper;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserDetails user = UserMapper.findUser(s);
-        return user;
+        System.out.println("username is " + s);
+        return UserMapper.findUser(s);
     }
 }

@@ -1,5 +1,6 @@
 package com.wenjun.poas.service;
 
+import com.wenjun.poas.entity.Event;
 import com.wenjun.poas.entity.HttpResult;
 
 import java.util.List;
@@ -10,10 +11,10 @@ import java.util.List;
  */
 public interface ISpiderService {
     /**
-     * @param keywords 关键词
+     * @param event 事件
      * @return is running
      */
-    HttpResult runTextSpider(String keywords,String event);
+    HttpResult runTextSpider(Event event);
 
     HttpResult runCommentSpider(String textId);
 }

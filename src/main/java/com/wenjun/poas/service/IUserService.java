@@ -2,22 +2,27 @@ package com.wenjun.poas.service;
 
 import com.wenjun.poas.entity.User;
 
+import java.util.List;
+
 /**
  * @author xuwenjun
  * @date 2020/3/31
  */
 public interface IUserService {
-    /**
-     * 添加用户
-     * @param user
-     * @return
-     */
+
+    User findByName(String username);
+
+    List<User> findAll();
+
     boolean addUser(User user);
 
-    /**
-     * 修改密码
-     * @param user
-     * @return
-     */
-    boolean changePassword(User user);
+    void changePassword(User user);
+
+    void changeEmail(User user);
+
+    void changeRole(User user);
+
+    void deleteUser(User user);
+
+    void updateUser(User user);
 }

@@ -82,4 +82,15 @@ public class DateFormatUtil {
         return format.format(new Date(handled));
     }
 
+    public Long getTime(String time) {
+        long timeNumber = 0;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH");
+        try {
+            timeNumber = format.parse(time).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return timeNumber;
+    }
+
 }

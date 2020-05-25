@@ -8,7 +8,7 @@
     </insert>
 
 
-    <select id="findByEvent" parameterType="Integer" resultType="com.wenjun.poas.entity.TextKeyword">
+    <select id="findByEvent" parameterType="String" resultType="com.wenjun.poas.entity.TextKeyword">
         select * from poas_event_keyword where event_id = #{eventId}
     </select>
 

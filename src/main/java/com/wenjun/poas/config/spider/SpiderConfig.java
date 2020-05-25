@@ -25,6 +25,9 @@ public class SpiderConfig {
     public String listJobsUrl;
 
 //    定时爬取间隔时间
-    @Value("${spider.intervaltime}")
+    @Value("${spider.intervalTime}")
     public Integer intervalTime;
+//    每次程序启动的执行延迟
+    @Value("${spider.initialDelay}")
+    public Integer initialDelay;
 }

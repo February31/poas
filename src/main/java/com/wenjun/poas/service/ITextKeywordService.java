@@ -1,6 +1,7 @@
 package com.wenjun.poas.service;
 
 import com.wenjun.poas.entity.TextKeyword;
+import com.wenjun.poas.entity.WordCloudData;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ import java.util.List;
 public interface ITextKeywordService {
     void insert(TextKeyword textKeyword);
 
-    List<TextKeyword> findByEvent(Integer event);
+    List<WordCloudData> findByEvent(String event);
 }

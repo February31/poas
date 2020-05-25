@@ -7,21 +7,33 @@
         values (#{event_id},#{weibo_id},#{user_id},#{comments_count},#{attitudes_count},#{reposts_count},#{text},#{followers_count},#{created_at},#{attitude},#{similarity},#{handled_at})
     </insert>
 
-    <delete id="deleteText" parameterType="String">
-        delete from weibo_text where weibo_id = #{weiboId}
+    <delete id="deleteText" parameterType="com.wenjun.poas.entity.Text">
+        delete from weibo_text where weibo_id = #{weiboId} and event_id=#{eventId}
     </delete>
 
 
-    <select id="findByEvent" parameterType="Integer" resultType="com.wenjun.poas.entity.Text">
+    <select id="findByEvent" parameterType="String" resultType="com.wenjun.poas.entity.Text">
         select * from weibo_text where event_id = #{eventId}
     </select>
 
     <select id="findByTime" resultType="com.wenjun.poas.entity.Text">
-        select * from weibo_text where  handled_at=${time} and event_id = #{eventId}
+        select * from weibo_text where  handled_at=#{time} and event_id = #{eventId}
     </select>
 
-    <select id="findByNotHandled" resultType="com.wenjun.poas.entity.Text">
+    <select id="findByDay" resultType="com.wenjun.poas.entity.Text">
+        select * from weibo_text where event_id = #{eventId} and to_days(created_at) = to_days(#{day})
+    </select>
+
+    <select id="findByNotHandled" parameterType="String" resultType="com.wenjun.poas.entity.Text">
         select * from weibo_text where event_id = #{eventId} and handled_at = '0000-00-00 00:00'
+    </select>
+
+    <select id="getPosCount" parameterType="String" resultType="Integer">
+        select count(1) from weibo_text where event_id = #{eventId} and attitude="正向"
+    </select>
+
+    <select id="getNegCount" parameterType="String" resultType="Integer">
+        select count(1) from weibo_text where event_id = #{eventId} and attitude="负向"
     </select>
 
     <update id="updateTextEmotion" parameterType="com.wenjun.poas.entity.Text">
@@ -32,6 +44,11 @@
     <update id="updateText" parameterType="com.wenjun.poas.entity.Text">
         update  weibo_text set created_at=#{createdAt},similarity=#{similarity},handled_at=#{handledAt},attitude=#{attitude} where weibo_id=#{weiboId} and event_id = #{eventId}
     </update>
+
+    <update id="crawlComment" parameterType="String">
+        update  weibo_text set comment_status='采集' where weibo_id=#{weiboId}
+    </update>
+
 
 
 </mapper>
